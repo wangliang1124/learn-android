@@ -1,0 +1,2 @@
+include ':app', ':learning'
+rootProject.name='My Application'
