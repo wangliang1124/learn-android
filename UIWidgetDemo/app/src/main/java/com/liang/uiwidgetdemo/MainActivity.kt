@@ -1,5 +1,6 @@
 package com.liang.uiwidgetdemo
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         findViewById<Button>(R.id.button1).setOnClickListener(this)
         findViewById<Button>(R.id.button2).setOnClickListener(this)
+        findViewById<Button>(R.id.button3).setOnClickListener(this)
         editText1 = findViewById(R.id.editText1)
         progressBar1 = findViewById(R.id.progressBar1)
         progressBar2 = findViewById(R.id.progressBar2)
@@ -54,6 +56,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     }
                     show()
                 }
+            }
+            R.id.button3 -> {
+                val intent = Intent(this, RelativeLayoutDemo::class.java)
+                startActivity(intent)
             }
         }
     }
