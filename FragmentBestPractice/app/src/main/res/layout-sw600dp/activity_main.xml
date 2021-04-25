@@ -6,6 +6,12 @@
     android:orientation="horizontal"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="send broadcast" />
+
     <fragment
         android:id="@+id/newsTitleFrag"
         android:name="com.liang.fragmentbestpractice.NewsTitleFragment"
