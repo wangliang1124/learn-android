@@ -21,10 +21,15 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             var channel = NotificationChannel("normal", "Normal", NotificationManager.IMPORTANCE_DEFAULT)
             manager.createNotificationChannel(channel)
+
+            var channel2 = NotificationChannel("important", "Important", NotificationManager.IMPORTANCE_HIGH)
+            manager.createNotificationChannel(channel2)
         }
         manager.cancel(1)
 
         val sendNotice: Button = findViewById(R.id.sendNotice)
+        val sendNotice2: Button = findViewById(R.id.sendNotice2)
+
         sendNotice.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             val pi = PendingIntent.getActivity(this, 0, intent, 0)
@@ -35,6 +40,21 @@ class MainActivity : AppCompatActivity() {
                     .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.dog))
                     .setContentIntent(pi)
                     .build()
+            manager.notify(1, notification)
+        }
+
+        sendNotice2.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            val pi = PendingIntent.getActivity(this, 0, intent, 0)
+            val notification = NotificationCompat.Builder(this, "important")
+                .setContentTitle("This is content title")
+//                .setContentText("long long text long long text long long text long long text long long text long long text long long text long long text")
+                .setStyle(NotificationCompat.BigTextStyle().bigText("long long text long long text long long text long long text long long text long long text long long text long long text"))
+                .setSmallIcon(R.drawable.noti_dog)
+                .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.dog))
+//                .setStyle(NotificationCompat.BigPictureStyle().bigPicture(BitmapFactory.decodeResource(resources, R.drawable.dog)))
+                .setContentIntent(pi)
+                .build()
             manager.notify(1, notification)
         }
     }
