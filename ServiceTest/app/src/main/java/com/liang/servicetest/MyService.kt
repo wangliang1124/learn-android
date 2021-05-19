@@ -22,15 +22,20 @@ class MyService : LifecycleService() {
     private var number = 0
     val numberLiveData = MutableLiveData(0)
 
-    inner class DownloadBinder : Binder() {
-        val service: MyService = this@MyService
+    inner  class DownloadBinder : Binder() {
+//        val service: MyService = this@MyService
         fun startDownload() {
             Log.d(TAG, "startDownload: executed")
         }
 
-        fun getProgress(): Int {
+        fun getProgress(): MutableLiveData<Int> {
             Log.d(TAG, "getProgress: executed")
-            return 0
+            return numberLiveData;
+//            return 0
+        }
+
+        fun getNumber():MutableLiveData<Int>{
+            return numberLiveData
         }
     }
 
@@ -60,14 +65,14 @@ class MyService : LifecycleService() {
             manager.createNotificationChannel(channel)
         }
 
-        val intent = Intent(this, MainActivity::class.java)
-        val pi = PendingIntent.getActivity(this, 0, intent, 0)
+        val pendingIntent = PendingIntent.getActivity(this, 0, Intent(this, MainActivity::class.java), 0)
+
         val notification = NotificationCompat.Builder(this, "my_service")
             .setContentTitle("This is content title")
             .setContentText("This is content text")
             .setSmallIcon(R.drawable.ic_launcher_background)
             .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.dog))
-            .setContentIntent(pi)
+            .setContentIntent(pendingIntent)
             .build()
         startForeground(1, notification)
     }

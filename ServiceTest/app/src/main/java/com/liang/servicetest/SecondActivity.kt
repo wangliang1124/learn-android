@@ -18,7 +18,7 @@ class SecondActivity : AppCompatActivity() {
         Intent(this, MyService::class.java).also {
             val connection = object : ServiceConnection {
                 override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-                    (service as MyService.DownloadBinder).service.numberLiveData.observe(this@SecondActivity,
+                    (service as MyService.DownloadBinder).getNumber().observe(this@SecondActivity,
                         Observer {
                             findViewById<TextView>(R.id.textView2).text = "$it"
                         })

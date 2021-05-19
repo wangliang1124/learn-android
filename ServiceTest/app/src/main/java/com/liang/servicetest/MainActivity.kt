@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var downloadBinder: MyService.DownloadBinder
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            (service as MyService.DownloadBinder).service.numberLiveData.observe(
+            (service as MyService.DownloadBinder).getNumber().observe(
                 this@MainActivity,
                 Observer {
                     findViewById<TextView>(R.id.textView).text = "$it"
@@ -49,9 +49,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.bindServiceBtn).setOnClickListener {
-            Intent(this, MyService::class.java).also {
-                startService(it)
-                bindService(it, connection, Context.BIND_AUTO_CREATE)
+            Intent(this, MyService::class.java).apply {
+                startService(this)
+                bindService(this, connection, Context.BIND_AUTO_CREATE)
             }
         }
 
