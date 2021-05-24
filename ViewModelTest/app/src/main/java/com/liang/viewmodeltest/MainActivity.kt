@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 
@@ -21,16 +22,16 @@ class MainActivity : AppCompatActivity() {
         factory = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         myViewModel = ViewModelProvider(this,factory).get(MyViewModel::class.java)
 
-        textView1.text = myViewModel.number.toString()
+        myViewModel.getNumber().observe(this, Observer {
+            textView1.text = it.toString()
+        })
 
         findViewById<Button>(R.id.btnPlus).setOnClickListener {
-            myViewModel.number++
-            textView1.text = myViewModel.number.toString();
+            myViewModel.addNumber()
         }
 
         findViewById<Button>(R.id.btnMinus).setOnClickListener {
-            myViewModel.number--
-            textView1.text = myViewModel.number.toString();
+           myViewModel.minusNumber()
         }
 
     }
