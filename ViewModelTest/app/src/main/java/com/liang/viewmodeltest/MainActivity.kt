@@ -1,38 +1,41 @@
 package com.liang.viewmodeltest
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
+import com.liang.viewmodeltest.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var myViewModel: MyViewModel
-    private lateinit var factory:ViewModelProvider.Factory
+    private lateinit var factory: ViewModelProvider.Factory
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+//        setContentView(R.layout.activity_main)
+//        val textView1 = findViewById<TextView>(R.id.textView1)
 
-        val textView1 = findViewById<TextView>(R.id.textView1)
-
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         factory = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        myViewModel = ViewModelProvider(this,factory).get(MyViewModel::class.java)
+        myViewModel = ViewModelProvider(this, factory).get(MyViewModel::class.java)
 
-        myViewModel.getNumber().observe(this, Observer {
-            textView1.text = it.toString()
-        })
+        binding.data = myViewModel
+        binding.lifecycleOwner = this
 
-        findViewById<Button>(R.id.btnPlus).setOnClickListener {
-            myViewModel.addNumber()
-        }
-
-        findViewById<Button>(R.id.btnMinus).setOnClickListener {
-           myViewModel.minusNumber()
-        }
+//        myViewModel.getNumber().observe(this, Observer {
+//            binding.textView1.text = it.toString()
+//        })
+//
+//
+//        binding.btnPlus.setOnClickListener {
+//            myViewModel.addNumber()
+//        }
+//
+//        binding.btnMinus.setOnClickListener {
+//           myViewModel.minusNumber()
+//        }
 
     }
 }

@@ -1,24 +1,20 @@
 package com.liang.viewmodeltest
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MyViewModel : ViewModel() {
-    var number = 0
-    private var numberLiveData: MutableLiveData<Int> = MutableLiveData<Int>().also {
-        it.value = 0
-    }
+    private var _number = MutableLiveData(0)
 
-    fun getNumber(): MutableLiveData<Int> {
-        return numberLiveData
-    }
+    val number: LiveData<Int> = _number
 
     fun addNumber() {
-        numberLiveData.value = numberLiveData.value?.plus(1)
+        _number.value = _number.value?.plus(1)
     }
 
     fun minusNumber() {
-        numberLiveData.value = numberLiveData.value?.minus(1)
+        _number.value = _number.value?.minus(1)
     }
 
 }
