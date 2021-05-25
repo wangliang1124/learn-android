@@ -1,14 +1,14 @@
 package com.liang.viewmodeltest
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.liang.viewmodeltest.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var myViewModel: MyViewModel
-    private lateinit var factory: ViewModelProvider.Factory
+    private val myViewModel: MyViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,8 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        factory = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        myViewModel = ViewModelProvider(this, factory).get(MyViewModel::class.java)
+//        myViewModel = ViewModelProvider(this).get(MyViewModel::class.java)
 
         binding.data = myViewModel
         binding.lifecycleOwner = this
