@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                 .setStyle(NotificationCompat.BigTextStyle().bigText("long long text long long text long long text long long text long long text long long text long long text long long text"))
                 .setSmallIcon(R.drawable.noti_dog)
                 .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.dog))
-//                .setStyle(NotificationCompat.BigPictureStyle().bigPicture(BitmapFactory.decodeResource(resources, R.drawable.dog)))
+                .setStyle(NotificationCompat.BigPictureStyle().bigPicture(BitmapFactory.decodeResource(resources, R.drawable.dog)))
                 .setContentIntent(pi)
                 .build()
             manager.notify(1, notification)

@@ -91,6 +91,7 @@ class MyService : LifecycleService() {
 
     override fun onDestroy() {
         super.onDestroy()
+        stopSelf();
         Log.d(TAG, "onDestroy: executed")
     }
 

@@ -32,6 +32,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private var mShouldUnbind = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -51,13 +53,16 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.bindServiceBtn).setOnClickListener {
             Intent(this, MyService::class.java).apply {
                 startService(this)
-                bindService(this, connection, Context.BIND_AUTO_CREATE)
+                mShouldUnbind = bindService(this, connection, Context.BIND_AUTO_CREATE)
             }
         }
 
         findViewById<Button>(R.id.unbindServiceBtn).setOnClickListener {
             Intent(this, MyService::class.java).also {
-                unbindService(connection)
+                if(mShouldUnbind) {
+                    unbindService(connection)
+                    mShouldUnbind = false
+                }
             }
         }
 
